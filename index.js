@@ -5,26 +5,34 @@
 var express = require("express");
 var app = express();
 
-const port = normalizePort(process.env.DBWEBB_PORT || '1337');
 
-console.log('Listening on port ' + port);
-
-
+var port = 1337;
 
 function normalizePort(val) {
-    let port = parseInt(val, 10);
+  var port = parseInt(val, 10);
 
-    if (isNaN(port)) {
-        return val;
-    }
+  if (isNaN(port)) {
+    return val;
+  }
 
-    if (port >= 0) {
+  if (port >= 0) {
 
-        return port;
-    }
+    return port;
+  }
 
-    return false;
+  return false;
 }
+
+if ('DBWEBB_PORT' in process.env) {
+    port = process.env.DBWEBB_PORT;
+    console.log(`DBWEBB_PORT set, using ${port}`);
+}
+else {
+    var port = normalizePort(process.env.PORT || '1337');
+}
+
+console.log('Listening on port ' + port);
+app.set('port', port);
 
 
 const path = require("path");
