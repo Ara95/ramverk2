@@ -44,18 +44,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(staticFiles));
-
-// Add a saying hello
-app.get("/hello", (req, res) => {
-    res.send("Hello World");
-});
-
-// Route with dynamic content save in a parameter
-app.get("/hello/:message", (req, res) => {
-    res.send(req.params.message);
-});
-
 
 app.get("/", (req, res) => {
     res.render("home", {
@@ -78,31 +66,7 @@ app.get("/report", (req, res) => {
     });
 });
 
-app.get("/test/blog", (req, res) => {
-    res.render("blog", {
-        title: "Blog",
-        posts: [
-            {
-                title: "Blog post 1",
-                content: "Content 1."
-            },
-            {
-                title: "Blog post 2",
-                content: "Content 2."
-            },
-            {
-                title: "Blog post 3",
-                content: "Content 3."
-            },
-        ]
-    });
-});
 
-app.get("/test/markdown", (req, res) => {
-    res.render("markdown", {
-        title: "Markdown"
-    });
-});
 
 // Note the error handler takes four arguments
 app.use((err, req, res, next) => {
