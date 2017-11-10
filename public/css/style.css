@@ -20,13 +20,16 @@ body, html {
 
 
 img {
-    margin-left: 50px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+
 }
-p, h1 {
+p, h1, h2 {
     margin-left: 20px;
 }
 
 a {
+    margin-left: 20px;
     padding: 14px;
     border-radius: 12px;
     text-align: center;

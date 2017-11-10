@@ -8,6 +8,21 @@ var app = express();
 
 var port = 1337;
 
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    return val;
+  }
+
+  if (port >= 0) {
+
+    return port;
+  }
+
+  return false;
+}
+
 if ('DBWEBB_PORT' in process.env) {
     port = process.env.DBWEBB_PORT;
     console.log(`DBWEBB_PORT set, using ${port}`);
@@ -22,9 +37,9 @@ app.set('port', port);
 
 const path = require("path");
 
-app.set('views', path.join(__dirname, 'views'));
 // Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+var staticFiles = path.join(__dirname, "/public");
+
 
 app.set('view engine', 'pug');
 
@@ -82,21 +97,6 @@ app.use((req, res, next) => {
     err.status = 404;
     next(err);
 });
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    return val;
-  }
-
-  if (port >= 0) {
-
-    return port;
-  }
-
-  return false;
-}
 // Start up server
 console.log("Express is ready.");
 app.listen(port);

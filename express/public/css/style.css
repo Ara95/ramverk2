@@ -1,0 +1,161 @@
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    height: 100%;
+    background-color: #efefef;
+}
+
+a {
+    color: #00b7ff;
+}
+
+a:hover {
+    color: #53ceff;
+}
+
+body.show-menu {
+    overflow: hidden;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin: 2em 0;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    /* background-color: #000;
+    opacity: 0.2; */
+}
+
+.overlay.show {
+    display: block;
+}
+
+.site-header {
+    background-color: #fff;
+    padding: 10px 5%;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+
+.site-title {
+    font-size: 2rem;
+}
+
+.site-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.menu-button {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    margin-top: -15px;
+    right: 5%;
+    width: 35px;
+    height: 30px;
+}
+
+.bars,
+.bars::before,
+.bars::after {
+    position: absolute;
+    cursor: pointer;
+    background-color: #000;
+    display: block;
+    width: 35px;
+    height: 4px;
+    top: 13px;
+    border-radius: 2px;
+}
+
+.bars::before {
+    content: "";
+    top: -11px;
+}
+
+.bars::after {
+    content: "";
+    top: 11px;
+}
+
+.site-navbar {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: -300px;
+    height: 100%;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: -2px 0 2px -2px rgba(0, 0, 0, 0.5);
+    transition: transform 300ms ease-in;
+}
+
+.site-navbar.show {
+    transform: translateX(-300px);
+}
+
+.site-navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-navbar ul li a {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.site-navbar ul li a:hover {
+    background-color: #00b7ff;
+    color: #fff;
+}
+
+.main-content {
+    padding: 10px;
+    width: 90%;
+    margin: 10px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.main-content::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.site-footer {
+    padding: 10px;
+    width: 90%;
+    margin: 10px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.left {
+    float: left;
+    margin-right: 10px;
+}
+
+.width-200 {
+    width: 200px;
+}
