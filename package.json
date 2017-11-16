@@ -3,7 +3,11 @@
   "version": "2.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "nyc --reporter=html --reporter=text mocha 'test/**/*.js'",
+    "node_latest_alpine": "docker-compose run node_latest_alpine npm test",
+    "node7_alpine": "docker-compose run node7_alpine npm test",
+    "node6_alpine": "docker-compose run node6_alpine npm test"
   },
   "author": "Ara",
   "license": "ISC",
@@ -22,10 +26,11 @@
     "codecov": "^3.0.0",
     "coveralls": "^3.0.0",
     "csslint": "^1.0.5",
-    "eslint": "^4.10.0",
+    "eslint": "^4.11.0",
     "eslint-plugin-react": "^7.4.0",
     "html-minifier": "^3.5.6",
     "htmlhint": "^0.9.13",
+    "javascript-style-guide": "^0.9.10",
     "js-yaml": "^3.10.0",
     "jscs": "^3.0.7",
     "jsonlint": "^1.6.2",

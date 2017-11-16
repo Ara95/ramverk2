@@ -9,26 +9,21 @@ var app = express();
 var port = 1337;
 
 function setport(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    return val;
-  }
-
-  if (port >= 0) {
-
-    return port;
-  }
-
-  return false;
+    var port = parseInt(val, 10);
+    if (isNaN(port)) {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+    return false;
 }
 
 if ('DBWEBB_PORT' in process.env) {
     port = process.env.DBWEBB_PORT;
     console.log(`DBWEBB_PORT is used, port is: ${port}`);
-}
-else {
-    var port = setport(process.env.PORT || '1337');
+} else {
+    port = setport(process.env.PORT || '1337');
 }
 
 console.log('Listening on port ' + port);
