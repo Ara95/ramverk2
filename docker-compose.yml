@@ -1,23 +1,20 @@
 version: "3"
 services:
-    node4:
-        image: "node:4"
-        ports:
-            - "8090:80"
-        volumes:
-            - ./:/var/www/html/
-        command: "npm start"
-    node8:
-        image: "node:8"
-        ports:
-            - "8089:80"
-        volumes:
-            - .:/var/www/html
-        command: "npm start"
-    node9:
-        image: "node:9"
-        ports:
-            - "8006:80"
-        volumes:
-            - .:/var/www/html
-        command: "npm start"
+  node9:
+    image: node:9
+    ports:
+      - "8089:80"
+    volumes:
+      - ./:/home/node/app/
+  node8:
+    image: node:8
+    ports:
+      - "8088:80"
+    volumes:
+      - ./:/home/node/app/
+  node7:
+    image: node:7
+    ports:
+      - "8087:80"
+    volumes:
+      - ./:/home/node/app/
