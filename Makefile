@@ -121,10 +121,33 @@ check: check-tools-js #check-tools-bash check-tools-php
 
 # target: test               - Run all tests.
 .PHONY: test
-test: htmlhint stylelint eslint jsunittest
+test: htmlhint stylelint eslint jsunittest #csslint jscs
 	@$(call HELPTEXT,$@)
-	[ ! -f composer.json ] || composer validate
+	[ ! -f composer.json ] || composer validate
 
+
+
+# target: test1              - Run docker node9.
+.PHONY: test1
+test1:
+	@$(call HELPTEXT,$@)
+	docker-compose run node_latest_alpine npm test
+
+
+
+# target: test2             - Run docker node8.
+.PHONY: test2
+test2:
+	@$(call HELPTEXT,$@)
+	docker-compose run node7_alpine npm test
+
+
+
+# target: test3              - Run docker node6.
+.PHONY: test3
+test3:
+	@$(call HELPTEXT,$@)
+	docker-compose run node6_alpine npm test
 
 
 # target: doc                - Generate documentation.
@@ -261,6 +284,24 @@ else
 	[ ! -d test ] || $(MOCHA) --reporter dot 'test/**/*.js'
 endif
 
+
+# target: node6alpinetest         - Docker node_6_alpine test
+.PHONY: node6alpinetest
+node6alpinetest:
+	@$(call HELPTEXT,$@)
+	docker-compose run node_6_alpine npm test
+
+# target: node7alpinetest         - Docker node_7_alpine test
+.PHONY: node7alpinetest
+node7alpinetest:
+	@$(call HELPTEXT,$@)
+	docker-compose run node_7_alpine npm test
+
+# target: nodelatest         - Docker node_latest test
+.PHONY: nodelatest
+nodelatest:
+	@$(call HELPTEXT,$@)
+	docker-compose run node_latest_alpine npm test
 
 
 

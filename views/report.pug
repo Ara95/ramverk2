@@ -41,8 +41,24 @@ block main
             Nej det gjorde jag tyvärr inte. Kände mest att jag ville avsluta det på god fot så jag inte skulle tröttna. Kommer nog med tiden att våga mig på att testa lite mer inom Docker.
 
             # Kmom03
-            ## Rubrik
-            Another paragraph.
+            ## Berätta vilka tekniker/verktyg du valde för enhetstester och kodtäckning och varför?
+            Eftersom jag fortfarande känner mig lite osäker på hur man ska välja som är bäst för en själv och vad som är bäst på vad så valde jag att gå enligt de som fanns i artikeln. Visst är det ett säkrare kort men det gav mig mest stöd i hela processen. När jag känner mig säker kanske jag kan testa på med annat och sedan jämföra vad som egentligen är bäst men för tillfället kör jag med Mocha och Nyc.
+
+            ## Berätta om cin CI-kedja och reflektera över de valen du gjorde?
+            AJag valde att jobba med Travis(byggtjänst) samt Scrutinizer. Scrutinizer som nämnt ganska mycket i gitterchatten(vad jag har sett) fångade mitt intresse då den kollar flera saker i ett(3 om jag inte minns fel?). Därför tycker jag att den var värd att ta med då den täcker flera fronter. Med kodtäckning så använde jag mig lite av codecov. Som jag nämnde tidigare så är det ganska nytt för mig att testa koden på detta sätt nytt för mig och känner mig riktigt inte vågad för mer än detta. Men det känns ändå som att jag har testat lite olika. Varför jag just valde dessa var att Travis såg vi på i tidigare kursmoment samt att Scrutinizer nämnts mycket innan och att det täcker många fronter. Resterande blev bara något val jag gjorde för att få det gjort.
+
+            ## Reflektera över hur det gick att integrera enhetstesterna i olika Docker-kontainerns och om du ser någon nytta med detta.
+
+            I början trodde jag det skulle bli klurigt att få till allt eftersom det strulade för mig i föregående kursmoment med docker av någon anledning. Men det gick ganska bra tycker jag, fick dock testa mig fram vid varje steg jag tog flera gånger för att inte förstöra något medans jag satte upp allt. Vilket hände i tidigare kursmoment.
+            Om jag ser någon nytta av denna variant av test, det gör jag absolut. Man kan ganska enkelt testa olika versioner av en miljö(eller flera). Om man jobbar med något större arbete kanske man kan testa som jag skrev, på flera olika miljöer och lättare få fram framtida fel. Alltså kan man enkelt undvika att det sker buggar.
+
+
+            ## Hur väl lyckades du utvärdera TDD-konceptet och vilka är dina reflektioner?
+
+            Då jag inte har kommit så långt på min app så har jag ännu inte använt mig utav TDD-konceptet. Men jag förstår att det är ett bra sätt att använda sig utav då man från början kan få en testbar kod. Kommer förhoppningsvis att ge mig på det längre fram, om inte i denna kurs så blir det av i framtiden. Verkar som ett bra sätt att strukturera sitt arbete med tester.
+
+            ## Berätta om tankarna kring din klient/server applikation och nämn de tekniker du använder.
+            Så fort jag fick höra att vi skulle jobba med realtidsprogrammering så tänkte jag direkt på att jag ville göra en chatt. Samt att vi i kursmoment längre fram ska bygga en liten chatt också så det gjorde mitt beslut mycket lättare. För då har jag redan fått en grund från realtidsprogrammering och kan utgå därifrån. Jag har tänkt att bygga upp den som våran me-sida med en express-server samt klient vet jag inte riktigt ännu, funderar på att testa något nytt istället för PUG. Men det får jag fundera över innan nästa kmom. 
 
 
             # Kmom04

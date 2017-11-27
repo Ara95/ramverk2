@@ -10,6 +10,7 @@ var port = 1337;
 
 function setport(val) {
     var port = parseInt(val, 10);
+
     if (isNaN(port)) {
         return val;
     }
@@ -89,9 +90,12 @@ app.use((err, req, res, next) => {
 // Put this last
 app.use((req, res, next) => {
     var err = new Error("Not Found");
+
     err.status = 404;
     next(err);
 });
-// Start up server
+// Start up server'
+
 console.log("Express is ready.");
 app.listen(port);
+module.exports = express;
