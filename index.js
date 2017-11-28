@@ -70,6 +70,12 @@ app.get("/report", (req, res) => {
     });
 });
 
+app.get("/app", (req, res) => {
+    res.render("App", {
+        title: "Applikation",
+        message: "Min app!"
+    });
+});
 
 
 // Note the error handler takes four arguments
