@@ -1,0 +1,225 @@
+<!doctype html>
+
+<html>
+
+	<head>
+		<meta charset='utf-8'>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		<title> Chat </title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<style>
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
+			body {
+				font: 13px;
+				font-family: 'Roboto Condensed', sans-serif;
+			}
+			#optionsBar {
+				display: inline-block;
+				height: 56%;
+				width: 20%;
+				margin-left: 150px;
+				border: 1px solid #000;
+				margin-right: 2%;
+				padding-left: 10px;
+				padding-right: 8px;
+				overflow: auto;
+			}
+			#chatbox {
+				display: inline-block;
+				position: absolute;
+				height: 100%;
+				width: 65%;
+			}
+
+			#display {
+				position: relative;
+				left: 0;
+				top: 0;
+				height: 50%;
+				width: 60%;
+				border: 1px solid #000;
+				overflow: auto;
+			}
+			.ascii_face li {
+				font-size: 18px;
+			}
+			.ascii_face p {
+				display: inline-block;
+			}
+			form {
+				position: relative;
+				background: #fff;
+				padding: none;
+				top: 95%;
+				width: 100%;
+			}
+			#sendMsg{
+				width: 100%;
+			}
+			form input {
+				border: 1px solid #000;
+				padding: 10px;
+				width: 90%;
+				margin-right: 1%;
+				width: 60%;
+			}
+			form button {
+				width: auto;
+				margin: 0;
+				background: rgb(130, 224, 255);
+				padding: 10px 15px 10px 15px;
+			}
+			#optionsBar button {
+				padding: 3px 5px 3px 5px;
+				border: 1px solid #000;
+				border-radius: 6px;
+			}
+			#messages {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			#messages li {
+				padding: 5px 10px;
+				margin: 0;
+			}
+			#messages li:nth-child(odd){
+				background: #eee;
+			}
+
+			#picReactionChoices, #asciiReactionChoices {
+				display: none;
+				border: 1px solid #000;
+				height: 10%;
+			}
+
+			#addNewEmoticon li {
+				list-style-type: none;
+			}
+
+			#addNewEmoticon ul {
+				padding-left: 0;
+			}
+
+			.asciiface:hover {
+				background-color: rgba(0, 178, 0, .2);
+			}
+			.removeAscii {
+				display: inline-block;
+				padding-left: 20px;
+			}
+
+			.removeAscii:hover {
+				color: rgba(178, 0, 0, .8);
+			}
+
+			@media screen and (max-width: 800px){
+				#optionsBar {
+				}
+				#reactionASCII h3{
+					font-size: 18px;
+				}
+				#people h2{
+					font-size: 20px;
+				}
+				#m{
+					width: 60%;
+				}
+				input, select{
+					width: 100%;
+				}
+				#asciiReactionChoices{
+					border: none;
+				}
+				#asciiReactionChoices p{
+					font-size: 12px;
+				}
+				#asciiReactionChoices ul{
+					padding: 0;
+				}
+				#asciiReactionChoices li{
+					font-size: 10px;
+					whitespace: nowrap;
+				}
+				.removeAscii{
+					color: rgba(178, 0, 0, .8);
+				}
+
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div id='optionsBar'>
+
+
+			<div id='people'>
+				<h2 id='userGreeting'> Welcome, <%= user.local.username %> </h2>
+				<h3> Users online:  </h3>
+				<ol id='userList'>
+				</ol>
+			</div>
+
+
+			</div>
+		</div>
+
+
+		<div id='chatbox'>
+			<div id='display'>
+				<ul id="messages"></ul>
+			</div>
+			<div id='sendMsg'>
+				<form action="">
+				<input id="m" autocomplete="off" placeholder='enter a message...'/>
+					<button> Send </button>
+				</form>
+			</div>
+		</div>
+
+		<script>
+			var socket = io();
+
+			$(function(){
+
+
+				var greeting = $('#userGreeting').text();
+				var username = greeting.substring(greeting.indexOf(',') + 1).trim();
+				socket.emit('userConnected', username);
+
+				socket.on('getCurrentUsers', function(userList){
+
+					$('#userList').empty();
+					var list = document.getElementById('userList');
+					for(var i = 0; i < userList.length; i++){
+						var user = document.createElement('li');
+						user.textContent = userList[i];
+						list.appendChild(user);
+					}
+				});
+
+				$('form').submit(function(){
+
+					socket.emit('chat message', {'user': username, 'msg': $('#m').val()});
+					$('#m').val('');
+					return false;
+				});
+				socket.on('chat message', function(msg){
+
+					$('#messages').append($('<li>').text(msg));
+				});
+			});
+
+
+
+		</script>
+
+	</body>
+
+</html>

@@ -1,11 +1,24 @@
-#!/usr/bin/env node
-"use strict";
+/* notes:
 
-// Create the app objekt
-var express = require("express");
-var app = express();
+super helpful! https://scotch.io/tutorials/easy-node-authentication-setup-and-local
+https://medium.com/@johnnyszeto/node-js-user-authentication-with-passport-local-strategy-37605fd99715
+http://aleksandrov.ws/2013/09/12/restful-api-with-nodejs-plus-mongodb/
+https://www.sitepoint.com/local-authentication-using-passport-node-js/
+https://www.raymondcamden.com/2016/06/23/some-quick-tips-for-passport/
+
+// how to get list of logged in users through socket?
+https://stackoverflow.com/questions/8788790/list-of-connected-clients-username-using-socket-io?lq=1
+*/
+
+// set up server
+var express = 			require('express');
+var app = 				express();
+
+// the order is important here!
+var port = 				process.env.PORT || 3000;
 var http = 				require('http').Server(app);
 var io = 				require('socket.io')(http);
+http.listen(port);
 
 var mongoose = 			require('mongoose');
 var passport = 			require('passport');
@@ -19,26 +32,6 @@ var mongoStore = 		require("connect-mongo");
 
 // './' is current directory
 var configDB = require('./config/database.js');
-
-
-function setport(val) {
-    var port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        return val;
-    }
-    if (port >= 0) {
-        return port;
-    }
-    return false;
-}
-
-if ('DBWEBB_PORT' in process.env) {
-    port = process.env.DBWEBB_PORT;
-    console.log(`DBWEBB_PORT is used, port is: ${port}`);
-} else {
-    port = setport(process.env.PORT || '1337');
-}
 // need to connect the database with the server!
 mongoose.connect(configDB.url);
 // link up passport as well
@@ -48,22 +41,12 @@ require('./config/passport.js')(passport);
 app.use(cookieParser()); 		// read cookies, since that is needed for authentication
 app.use(bodyParser()); 			// this gets information from html forms
 app.set('view engine', 'ejs');	// set view engine to ejs - templates are definitely worth it for this kind of project.
-var port = 1337;
 
+// this is required for passport
+// app.use(session({ secret: 'aweawesomeawesomeawesomesome' })); // read up on session secret
 
-console.log('Listening on port ' + port);
-app.set('port', port);
-
-
-const path = require("path");
-
-app.set('views', path.join(__dirname, 'views'));
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.set('view engine', 'pug');
-
-
+// make a sessionMiddleware variable to link up mongoStore in order to log all the current sessions
+// that way we can access all the current users and list them in the chatroom
 var sessionMiddleware = session({
 	secret: 'aweawesomeawesomeawesomesome',
 	store: new (mongoStore(session))({
@@ -117,67 +100,7 @@ io.on('connection', function(socket){
 		io.emit('image', img);
 	});
 });
-// This is middleware called for all routes.
-// Middleware takes three parameters.
-app.use((req, res, next) => {
-    console.log(req.method);
-    console.log(req.path);
-    next();
+
+http.listen(port, function(){
+	console.log('listening on *:' + port);
 });
-
-
-app.get("/", (req, res) => {
-    res.render("home", {
-        title: "Home",
-        message: "Home page!"
-    });
-});
-
-app.get("/about", (req, res) => {
-    res.render("about", {
-        title: "About",
-        message: "About me!"
-    });
-});
-
-app.get("/report", (req, res) => {
-    res.render("report", {
-        title: "Redovisningar",
-        message: "Redovisningar!"
-    });
-});
-
-app.get("/app", (req, res) => {
-    res.render("App", {
-        title: "Applikation",
-        message: "Min app!"
-    });
-});
-
-
-// Note the error handler takes four arguments
-app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        return next(err);
-    }
-    err.status = err.status || 500;
-    res.status(err.status);
-    res.render("error", {
-        error: err
-    });
-});
-
-
-// Add routes for 404 and error handling
-// Catch 404 and forward to error handler
-// Put this last
-app.use((req, res, next) => {
-    var err = new Error("Not Found");
-
-    err.status = 404;
-    next(err);
-});
-// Start up server'
-console.log("Express is ready.");
-http.listen(port);
-module.exports = express;
