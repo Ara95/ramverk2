@@ -58,12 +58,26 @@ block main
             Då jag inte har kommit så långt på min app så har jag ännu inte använt mig utav TDD-konceptet. Men jag förstår att det är ett bra sätt att använda sig utav då man från början kan få en testbar kod. Kommer förhoppningsvis att ge mig på det längre fram, om inte i denna kurs så blir det av i framtiden. Verkar som ett bra sätt att strukturera sitt arbete med tester.
 
             ## Berätta om tankarna kring din klient/server applikation och nämn de tekniker du använder.
-            Så fort jag fick höra att vi skulle jobba med realtidsprogrammering så tänkte jag direkt på att jag ville göra en chatt. Samt att vi i kursmoment längre fram ska bygga en liten chatt också så det gjorde mitt beslut mycket lättare. För då har jag redan fått en grund från realtidsprogrammering och kan utgå därifrån. Jag har tänkt att bygga upp den som våran me-sida med en express-server samt klient vet jag inte riktigt ännu, funderar på att testa något nytt istället för PUG. Men det får jag fundera över innan nästa kmom. 
+            Så fort jag fick höra att vi skulle jobba med realtidsprogrammering så tänkte jag direkt på att jag ville göra en chatt. Samt att vi i kursmoment längre fram ska bygga en liten chatt också så det gjorde mitt beslut mycket lättare. För då har jag redan fått en grund från realtidsprogrammering och kan utgå därifrån. Jag har tänkt att bygga upp den som våran me-sida med en express-server samt klient vet jag inte riktigt ännu, funderar på att testa något nytt istället för PUG. Men det får jag fundera över innan nästa kmom.
 
 
             # Kmom04
-            ## Rubrik
-            Another paragraph.
+            ## Är du ny på realtidsprogrammering eller har du gjort liknande tidigare?
+            Detta var absolut första gången jag jobbar med realtidsprogrammering. Men jag har hört om det innan och det har tidigare verkat intressant. Eftersom det öppnar många dörrar och man kan utveckla så mycket mer än innan. Dock så var det lite krångligt i början som med alla andra tekniker vi jobbar med, mycket nya begrepp och så.
+
+            ## Hur gick det att jobba med konceptet realtidsprogrammering i webben, några reflektioner?
+            Jag tycker att gick bra att komma in i det. Artikeln vi skulle jobba igenom var en bra artikel där vi fick jobba med en chatt. Där vi kunde koppla upp oss samt se saker uppdateras direkt och därav bli en chatt. Häftigt att man kan jobba mot sin server på detta sätt.
+            Jag har valt att göra en chatt där man ska kunna registrera sig samt logga in för att kunna använda, det ska vara ett stort chattrum. Har kollat runt lite och valt att använda mig utav sockets.io. Följer lite olika artiklar på nätet för att föra samman min chatt och se till att den fungerar.
+
+            ## Berätta om din chatt som du integrerade i redovisa-sidan
+            Appen jag integrerade i min me-sida är min huvudsakliga app, valde även att implementera databashentering direkt i detta kursmoment då jag såg att vi ska jobba med databaser i nästa kursmoment.
+            Jag har en routes som ligger under routes som just hanterar alla mina olika routes. Allt från att huvudchatten, registrering samt inlogg. Använder mig av authenticate till både registrering av användare samt vid inlogg. Går den igenom så loggas man in till huvudchatten. Om det inte går igenom så skickas man tillbaka till startsidan. Har även en funktion som jag loopar direkt i min .EJS fil där jag loopar igenom min lista för users som är online och listar upp dem till sidan av chatten så man enkelt kan se vilka som är online.
+            Istället för att använda mig utav React eller PUG som många gör så har jag valt att vända mig till EJS. Som gör så att jag kan hämta variablar från mina .js filer och använda dem samt att skriva javascript direkt i mina filer som sedan genereras till HTML.
+
+
+            ## Berätta om den realtidsfunktionalitet du väljer att integrera i din klient/server applikation.
+            Som jag nämnde ovan så är det en chatt som är byggd med EJS template. Varför jag valde att jobba med det är eftersom man kan kalla på variabler samt skriva JavaScript kod direkt i sina filer som sedan genereras till HTML.
+            Använder mig också utav MongoDB som är min databas. Varför jag valde just MongoDB eftersom många jag kollat på ute på nätet använder det samt att artikeln använde samma. Också bestämt att använda mig utav sockets.io istället för websockets. Kan inte riktigt reflektera över varför men det känns som att sockets.io har ger dig en större möjlighet att kommunicera mot servern.
 
 
             # Kmom05
