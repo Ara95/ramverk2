@@ -32,7 +32,7 @@ require('./config/passport.js')(passport);
 app.use(cookieParser());
 app.use(bodyParser());
 app.set('view engine', 'ejs');
-var port = 3000;
+const PORT = process.env.PORT || 3000;
 
 
 
@@ -49,10 +49,10 @@ function setport(val) {
 }
 
 if ('DBWEBB_PORT' in process.env) {
-    port = process.env.DBWEBB_PORT;
-    console.log(`DBWEBB_PORT is used, port is: ${port}`);
+    PORT = process.env.DBWEBB_PORT;
+    console.log(`DBWEBB_PORT is used, port is: ${PORT}`);
 } else {
-    port = setport(process.env.PORT || '3000');
+    PORT = setport(process.env.PORT || '3000');
 }
 
 
@@ -201,6 +201,6 @@ app.post("/update", async (req, res) => {
 });
 
 console.log("Express is ready.");
-console.log('Listening on port ' + port);
-http.listen(port);
+console.log('Listening on port ' + PORT);
+http.listen(PORT);
 module.exports = express;
