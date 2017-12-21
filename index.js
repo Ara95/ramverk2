@@ -4,6 +4,8 @@
 
 var express = require("express");
 var app = express();
+const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/test";
+const db = require("./src/mongodb.js").mongoDB(dsn, 'cars');
 var http = 				require('http').Server(app);
 var io = 				require('socket.io')(http);
 
@@ -18,7 +20,9 @@ var assert =		    require('assert');
 var mongoStore = 		require("connect-mongo");
 
 
+
 var configDB = require('./config/database.js');
+
 
 
 function setport(val) {
@@ -37,7 +41,7 @@ if ('DBWEBB_PORT' in process.env) {
     port = process.env.DBWEBB_PORT;
     console.log(`DBWEBB_PORT is used, port is: ${port}`);
 } else {
-    port = setport(process.env.PORT || '1337');
+    port = setport(process.env.PORT || '3000');
 }
 
 mongoose.connect(configDB.url);
@@ -48,7 +52,7 @@ require('./config/passport.js')(passport);
 app.use(cookieParser());
 app.use(bodyParser());
 app.set('view engine', 'ejs');
-var port = 1337;
+var port = 3000;
 
 
 console.log('Listening on port ' + port);
@@ -141,24 +145,61 @@ app.get("/app", (req, res) => {
         message: "Min app!"
     });
 });
+app.get("/crud", async (req, res) => {
+    const data = await db.get();
 
-
-app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        return next(err);
-    }
-    err.status = err.status || 500;
-    res.status(err.status);
-    res.render("error", {
-        error: err
+    await db.close();
+    res.render("crud", {
+        title: "Crud",
+        items: data
     });
 });
 
-app.use((req, res, next) => {
-    var err = new Error("Not Found");
+app.post("/crud/edit", (req, res) => {
+    res.render("edit", {
+        title: "Crud Edit",
+        item: req.body
+    });
+});
 
-    err.status = 404;
-    next(err);
+app.post("/insert", async (req, res) => {
+    var item = {
+        brand: req.body.brand,
+        price: req.body.price,
+        year: req.body.year
+    };
+
+    try {
+        await db.insert(item);
+        res.redirect('back');
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.post("/delete", async (req, res) => {
+    try {
+        await db.delete(req.body.id);
+        res.redirect('back');
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+app.post("/update", async (req, res) => {
+    var item = {
+      brand: req.body.brand,
+      price: req.body.price,
+      year: req.body.year
+    };
+
+    try {
+        await db.update(req.body.id, item);
+        res.redirect('/crud');
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 console.log("Express is ready.");

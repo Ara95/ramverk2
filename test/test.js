@@ -1,11 +1,12 @@
-/**
- * Test the test-environment
- */
-"use strict";
+var assert = require('assert');
 
-/* global describe it */
+// To avoid errors
+var mocha = require('mocha');
+var describe = mocha.describe;
+var it = mocha.it;
 
-var assert = require("assert");
+var request = require('supertest');
+var app = require('../routes/routes.js');
 
 
 describe("Testing", function() {

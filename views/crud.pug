@@ -1,0 +1,41 @@
+extend layout.pug
+
+block main
+    main.crud
+        h1 Computers
+        table
+            tbody
+                tr
+                    th Brand
+                    th
+                    th Price
+                    th
+                    th Year
+                    th
+                    th
+                each item in items
+                    tr
+                        td= item.brand
+                        td
+                        td= item.price
+                        td
+                        td= item.year
+                        td
+                            form(method='post', action='/delete')
+                                input(type='hidden' name='id', value= item._id)
+                                button Delete
+                        td
+                            form(method='post', action='/crud/edit')
+                                input(type='hidden' name='id', value= item._id)
+                                input(type='hidden' name='brand', value= item.brand)
+                                input(type='hidden' name='price', value= item.price)
+                                input(type='hidden' name='year', value= item.year)
+                                button Update
+        h2 Create computer
+        form(method='post', action='/insert')
+            input(name='brand', placeholder='Brand')
+            |
+            input(name='price', placeholder='Price')
+            |
+            input(name='year', placeholder='Year')
+            button Create
