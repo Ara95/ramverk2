@@ -57,7 +57,7 @@ services:
             dockerfile: Docker/Dockerfile-express
         environment:
             - DBWEBB_PORT=3353
-            - DBWEBB_DSN=mongodb://mongodb:27017/cars
+            - DBWEBB_DSN=mongodb://mongodb:27017/test
         volumes:
             - ./:/app/
             - /app/node_modules/
