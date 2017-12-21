@@ -5,7 +5,7 @@
 var express = require("express");
 var app = express();
 const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/test";
-const db = require("./src/mongodb.js").mongoDB(dsn, 'cars');
+const db = require("./src/mongodb.js").mongoDB(dsn, 'test');
 var http = 				require('http').Server(app);
 var io = 				require('socket.io')(http);
 
@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(bodyParser());
 app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
-
+var port = 3000;
 
 
 function setport(val) {
@@ -49,10 +49,10 @@ function setport(val) {
 }
 
 if ('DBWEBB_PORT' in process.env) {
-    PORT = process.env.DBWEBB_PORT;
+    port = process.env.DBWEBB_PORT;
     console.log(`DBWEBB_PORT is used, port is: ${PORT}`);
 } else {
-    PORT = setport(process.env.PORT || '3000');
+    port = setport(process.env.PORT || '3000');
 }
 
 
