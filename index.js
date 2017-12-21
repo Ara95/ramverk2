@@ -24,6 +24,17 @@ var mongoStore = 		require("connect-mongo");
 var configDB = require('./config/database.js');
 
 
+mongoose.connect(configDB.url);
+
+require('./config/passport.js')(passport);
+
+
+app.use(cookieParser());
+app.use(bodyParser());
+app.set('view engine', 'ejs');
+var port = 3000;
+
+
 
 function setport(val) {
     var port = parseInt(val, 10);
@@ -44,19 +55,6 @@ if ('DBWEBB_PORT' in process.env) {
     port = setport(process.env.PORT || '3000');
 }
 
-mongoose.connect(configDB.url);
-
-require('./config/passport.js')(passport);
-
-
-app.use(cookieParser());
-app.use(bodyParser());
-app.set('view engine', 'ejs');
-var port = 3000;
-
-
-console.log('Listening on port ' + port);
-app.set('port', port);
 
 
 const path = require("path");
@@ -203,5 +201,6 @@ app.post("/update", async (req, res) => {
 });
 
 console.log("Express is ready.");
+console.log('Listening on port ' + port);
 http.listen(port);
 module.exports = express;
