@@ -4,7 +4,7 @@
 
 var express = require("express");
 var app = express();
-const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/test";
+const dsn =  process.env.DBWEBB_DSN || "mongodb://0.0.0.0:27017/test";
 const db = require("./src/mongodb.js").mongoDB(dsn, 'test');
 var http = 				require('http').Server(app);
 var io = 				require('socket.io')(http);
